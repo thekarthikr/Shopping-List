@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+
+$baseFont: "Poppins", sans-serif;
+$borderColor: grey;
+$borderRadius: 5px;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+@mixin flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body {
+  font-family: $baseFont;
+  display: grid;
+  place-content: center;
+  font-size: 1.6rem;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  &-logo {
+    font-size: 5rem;
+  }
+  &-header {
+    @include flexCenter;
+    gap: 1rem;
+  }
+
+  &-list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+  }
+
+  &-item {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid $borderColor;
+    border-radius: $borderRadius;
+    padding: 0.5rem;
+  }
+
+  &-btn {
+    color: red;
+    cursor: pointer;
+  }
+}
+
+.form {
+  &-input {
+    outline: none;
+    border: 1px solid $borderColor;
+    border-radius: $borderRadius;
+    padding: 5px;
+    margin-bottom: 0.7rem;
+  }
+
+  &-btn {
+    border: none;
+    background-color: blue;
+    padding: 5px;
+    border-radius: $borderRadius;
+    color: white;
+  }
+}
+
+.filter {
+  border: 1px solid $borderColor;
+  &-input {
+    border: none;
+    outline: none;
+  }
+}
+
+.clear-btn {
+  background: red;
+  outline: none;
+  border: none;
+  padding: 0.7rem;
+  border-radius: $borderRadius;
+  color: white;
+  font-weight: bold;
+}
