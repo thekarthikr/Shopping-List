@@ -5,9 +5,57 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./style.scss" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
     <title>Shopping List</title>
   </head>
   <body>
+    <div class="app">
+      <header class="app-header">
+        <i class="app-logo bx bxl-shopify"></i>
+        <h1 class="app-title">Shopping Lists</h1>
+      </header>
+
+      <form class="form">
+        <div class="form-group">
+          <input class="form-input" type="text" placeholder="Type here.." />
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="form-btn">
+            <i class="bx bx-plus"></i>
+            Add Item
+          </button>
+        </div>
+      </form>
+
+      <div class="filter">
+        <i class="bx bx-filter"></i>
+        <input class="filter-input" type="text" placeholder="Filter Items" />
+      </div>
+
+      <ul class="app-list">
+        <li class="app-item">
+          Apple
+          <i class="app-btn bx bx-x"></i>
+        </li>
+
+        <li class="app-item">
+          Orange
+          <i class="app-btn bx bx-x"></i>
+        </li>
+
+        <li class="app-item">
+          Banana
+          <i class="app-btn bx bx-x"></i>
+        </li>
+      </ul>
+
+      <button class="clear-btn">Clear All</button>
+    </div>
+
     <script type="module" src="/main.js"></script>
   </body>
 </html>
