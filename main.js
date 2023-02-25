@@ -1,8 +1,8 @@
 const form = document.querySelector('.form');
 const formInput = document.querySelector('.form-input');
-const item = document.querySelector('.app-item');
 const list = document.querySelector('.app-list');
 const clearBtn = document.querySelector('.clear-btn');
+const filter = document.querySelector('.filter');
 
 const addItem = (e)=>{
   e.preventDefault();
@@ -24,11 +24,13 @@ const addItem = (e)=>{
 
      const button = createButton('app-btn bx bx-x');
      listItem.appendChild(button);
-      item.parentElement.appendChild(listItem);
-
+     list.appendChild(listItem)
+      
+     clearUI();
+    
     formInput.value = '';
      
-  }
+  } 
  createElement('app-item');
 }
 
@@ -44,6 +46,7 @@ const deleteItem = (e)=>{
 if(e.target.parentElement.classList.contains('app-item')){
   e.target.parentElement.remove();
 }
+clearUI();
 }
 
 
@@ -51,9 +54,28 @@ const clearAll = ()=>{
   while(list.firstChild){
      list.removeChild(list.firstChild);
   }
+  clearUI();
 }
 
+const clearUI = ()=>{
+  const items = document.querySelectorAll('.app-item');
+
+   if(items.length === 0){
+     filter.style.display = 'none';
+     clearBtn.style.display = 'none'
+    
+   }else{
+    filter.style.display = 'block';
+     clearBtn.style.display = 'block'
+   }
+
+
+
+
+}
 
 form.addEventListener('submit', addItem);
 list.addEventListener('click', deleteItem);
 clearBtn.addEventListener('click', clearAll);
+
+clearUI();
