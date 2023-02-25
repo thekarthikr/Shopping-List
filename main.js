@@ -1,7 +1,8 @@
 const form = document.querySelector('.form');
 const formInput = document.querySelector('.form-input');
 const item = document.querySelector('.app-item');
-
+const list = document.querySelector('.app-list');
+const clearBtn = document.querySelector('.clear-btn');
 
 const addItem = (e)=>{
   e.preventDefault();
@@ -39,7 +40,20 @@ const createButton = (clasess)=>{
 
 }
 
-console.log(createButton('app-btn bx bx-x'))
+const deleteItem = (e)=>{
+if(e.target.parentElement.classList.contains('app-item')){
+  e.target.parentElement.remove();
+}
+}
+
+
+const clearAll = ()=>{
+  while(list.firstChild){
+     list.removeChild(list.firstChild);
+  }
+}
 
 
 form.addEventListener('submit', addItem);
+list.addEventListener('click', deleteItem);
+clearBtn.addEventListener('click', clearAll);
