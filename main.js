@@ -4,6 +4,13 @@ const list = document.querySelector('.app-list');
 const clearBtn = document.querySelector('.clear-btn');
 const filter = document.querySelector('.filter-input');
 
+
+const displayItems = ()=>{
+  let itemFromStorage = getItemsFromStorage();
+
+   itemFromStorage.forEach(item => addItemToDom(item));
+}
+
 const addItem = (e)=>{
   e.preventDefault();
 
@@ -39,19 +46,24 @@ const addItem = (e)=>{
 
 
  const addItemsToStorage = (item)=>{
-   let  itemFromStorage;
- 
-    if(localStorage.getItem('items') === null){
-      itemFromStorage = [];
-    }else{
-       itemFromStorage = JSON.parse(localStorage.getItem('items'));
-      
-    }
+   let  itemFromStorage = getItemsFromStorage();
+
     itemFromStorage.push(item);
     localStorage.setItem('items', JSON.stringify(itemFromStorage)); 
 
  } 
         
+
+ const getItemsFromStorage = ()=>{
+  let  itemFromStorage;
+ 
+  if(localStorage.getItem('items') === null){
+    itemFromStorage = [];
+  }else{
+     itemFromStorage = JSON.parse(localStorage.getItem('items')); 
+  }
+  return itemFromStorage;
+ }
  
 const createButton = (clasess)=>{
   const button = document.createElement('i');
@@ -63,15 +75,27 @@ const createButton = (clasess)=>{
 const deleteItem = (e)=>{
 if(e.target.parentElement.classList.contains('app-item')){
   e.target.parentElement.remove();
+
+  removeItemFromStorage(e.target.parentElement.textContent);
 }
 clearUI();
 }
+
+const removeItemFromStorage = (item)=>{
+  let itemFromStorage = getItemsFromStorage();
+
+  itemFromStorage = itemFromStorage.filter(i => i !== item );
+
+  localStorage.setItem('items', JSON.stringify(itemFromStorage));
+}
+
 
 
 const clearAll = ()=>{
   while(list.firstChild){
      list.removeChild(list.firstChild);
   }
+  localStorage.clear();
   clearUI();
 }
 
@@ -112,6 +136,7 @@ form.addEventListener('submit', addItem);
 list.addEventListener('click', deleteItem);
 clearBtn.addEventListener('click', clearAll);
 filter.addEventListener('input', filterItems);
+document.addEventListener('DOMContentLoaded', displayItems);
 
 clearUI();
 
