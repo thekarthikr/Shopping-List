@@ -9,6 +9,7 @@ const displayItems = ()=>{
   let itemFromStorage = getItemsFromStorage();
 
    itemFromStorage.forEach(item => addItemToDom(item));
+   clearUI();
 }
 
 const addItem = (e)=>{
@@ -45,8 +46,17 @@ const addItem = (e)=>{
  }
 
 
+ const createButton = (clasess)=>{
+  const button = document.createElement('i');
+  button.className = clasess;
+  return button;
+
+}
+
+
+
  const addItemsToStorage = (item)=>{
-   let  itemFromStorage = getItemsFromStorage();
+   const  itemFromStorage = getItemsFromStorage();
 
     itemFromStorage.push(item);
     localStorage.setItem('items', JSON.stringify(itemFromStorage)); 
@@ -63,33 +73,30 @@ const addItem = (e)=>{
      itemFromStorage = JSON.parse(localStorage.getItem('items')); 
   }
   return itemFromStorage;
+  
  }
  
-const createButton = (clasess)=>{
-  const button = document.createElement('i');
-  button.className = clasess;
-  return button;
 
-}
 
 const deleteItem = (e)=>{
-if(e.target.parentElement.classList.contains('app-item')){
-  e.target.parentElement.remove();
+  if(e.target.parentElement.classList.contains('app-item')){
+    e.target.parentElement.remove();
+  
+  
+    removeItemFromStorage(e.target.parentElement.textContent);
+    clearUI();
+  }
 
-  removeItemFromStorage(e.target.parentElement.textContent);
-}
-clearUI();
-}
+  }
+  
 
-const removeItemFromStorage = (item)=>{
-  let itemFromStorage = getItemsFromStorage();
-
-  itemFromStorage = itemFromStorage.filter(i => i !== item );
-
-  localStorage.setItem('items', JSON.stringify(itemFromStorage));
-}
-
-
+  const removeItemFromStorage = (item)=>{
+    let itemFromStorage = getItemsFromStorage();
+  
+    itemFromStorage = itemFromStorage.filter(i => i !== item );
+  
+    localStorage.setItem('items', JSON.stringify(itemFromStorage));
+  }
 
 const clearAll = ()=>{
   while(list.firstChild){
@@ -139,5 +146,4 @@ filter.addEventListener('input', filterItems);
 document.addEventListener('DOMContentLoaded', displayItems);
 
 clearUI();
-
 
