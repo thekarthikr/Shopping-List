@@ -12,29 +12,47 @@ const addItem = (e)=>{
 
    if(listItemValue.trim() === ''){
      warning.style.display = 'inline';
-   }else{
-    warning.style.display = 'none'
    }
+   else{
+    warning.style.display = 'none'
+    addItemToDom(listItemValue);      
+   }
+     
+    addItemsToStorage(listItemValue);
 
-
-  const createElement = (clasess)=>{
-     const listItem = document.createElement('li');
-     listItem.appendChild(document.createTextNode(listItemValue));
-     listItem.className = clasess;
-
-     const button = createButton('app-btn bx bx-x');
-     listItem.appendChild(button);
-     list.appendChild(listItem)
-      
      clearUI();
     
     formInput.value = '';
-     
-  } 
- createElement('app-item');
+
 }
 
 
+ const addItemToDom = (item)=>{
+  const listItem = document.createElement('li');
+  listItem.appendChild(document.createTextNode(item));
+  listItem.className = 'app-item';
+
+  const button = createButton('app-btn bx bx-x');
+  listItem.appendChild(button);
+  list.appendChild(listItem)
+ }
+
+
+ const addItemsToStorage = (item)=>{
+   let  itemFromStorage;
+ 
+    if(localStorage.getItem('items') === null){
+      itemFromStorage = [];
+    }else{
+       itemFromStorage = JSON.parse(localStorage.getItem('items'));
+      
+    }
+    itemFromStorage.push(item);
+    localStorage.setItem('items', JSON.stringify(itemFromStorage)); 
+
+ } 
+        
+ 
 const createButton = (clasess)=>{
   const button = document.createElement('i');
   button.className = clasess;
@@ -66,7 +84,7 @@ const filterItems = (e)=>{
        const getName = item.firstChild.textContent.toLocaleLowerCase(); 
 
        if(getName.indexOf(text) !== -1){
-          item.style.display = 'flex';
+          item.style.display = 'flex';  
        }else{
          item.style.display = 'none'
        }
@@ -81,11 +99,11 @@ const clearUI = ()=>{
   const items = document.querySelectorAll('.app-item');
 
    if(items.length === 0){
-     filter.style.display = 'none';
+     filter.parentElement.style.display = 'none';
      clearBtn.style.display = 'none'
     
    }else{
-    filter.style.display = 'block';
+    filter.parentElement.style.display = 'block';
      clearBtn.style.display = 'block'
    }
 }
@@ -96,3 +114,5 @@ clearBtn.addEventListener('click', clearAll);
 filter.addEventListener('input', filterItems);
 
 clearUI();
+
+
